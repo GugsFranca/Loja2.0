@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * DTO for {@link ClientModel}
  */
-public record ClientModelDto(
+public record ClientResponse(
         String username,
         String email,
         RoleName role) implements Serializable {
