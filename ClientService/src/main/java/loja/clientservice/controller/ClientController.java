@@ -40,13 +40,11 @@ public class ClientController {
     }
     @PostMapping("/login")
     public ResponseEntity<ClientModel> login(@RequestBody ClientRequestLogin login) {
-
         return ResponseEntity.ok(service.login(login));
     }
 
     @DeleteMapping
     public ResponseEntity<Void> delete(@RequestBody ClientRequestLogin login) {
-        service.delete(login);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(service.delete(login)).build();
     }
 }
