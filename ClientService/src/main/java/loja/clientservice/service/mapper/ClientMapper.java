@@ -3,6 +3,7 @@ package loja.clientservice.service.mapper;
 import loja.clientservice.entity.ClientModel;
 import loja.clientservice.entity.ClientRequest;
 import loja.clientservice.entity.ClientResponse;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +16,7 @@ public class ClientMapper {
         return ClientModel.builder()
                 .username(request.username())
                 .email(request.email())
-                .password(request.password())
+                .password(BCrypt.hashpw(request.password(), BCrypt.gensalt()))
                 .role(request.role())
                 .build();
     }
