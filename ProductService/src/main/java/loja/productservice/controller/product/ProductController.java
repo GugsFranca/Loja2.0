@@ -5,8 +5,8 @@ import loja.productservice.entity.products.ProductResponse;
 import loja.productservice.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,19 +16,28 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService service;
-    public ResponseEntity<ProductResponse>  findById(Long id){
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ProductResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
-    public ResponseEntity<List<ProductResponse>>  findAll(){
+
+    @GetMapping
+    public ResponseEntity<List<ProductResponse>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
-    public ResponseEntity<ProductResponse>  findByName(String name){
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<ProductResponse> findByName(@PathVariable String name) {
         return ResponseEntity.ok(service.findByName(name));
     }
-    public ResponseEntity<String>  addProduct(ProductRequest request){
+
+    @PostMapping()
+    public ResponseEntity<String> addProduct(@RequestBody @Validated ProductRequest request) {
         return ResponseEntity.ok(service.addProduct(request));
     }
-    public ResponseEntity<ProductResponse>  sendToCart(Long id){
+
+    public ResponseEntity<ProductResponse> sendToCart(Long id) {
         //TODO
         return null;
     }
