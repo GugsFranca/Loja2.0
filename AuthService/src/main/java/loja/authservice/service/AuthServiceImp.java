@@ -16,7 +16,7 @@ public class AuthServiceImp implements AuthService {
     private final JwtUtils jwtUtils;
 
     public AuthResponse register(AuthRequest request){
-        request.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+
         ClientModel client = restTemplate.postForObject("http://localhost:9000/client/save", request, ClientModel.class);
 
         String accessToken = jwtUtils.generate(client.id().toString(), client.role(), "ACCESS");
