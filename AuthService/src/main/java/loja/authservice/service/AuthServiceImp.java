@@ -5,7 +5,6 @@ import loja.authservice.entity.AuthRequestLogin;
 import loja.authservice.entity.AuthResponse;
 import loja.authservice.entity.ClientModel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
