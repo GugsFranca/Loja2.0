@@ -27,7 +27,7 @@ public class ProductServiceImp implements ProductService {
         if (productList.isEmpty()) {
             throw new EntityNotFoundException("There is no products in this database");
         }
-        return null;
+        return productList;
     }
 
     @Override
