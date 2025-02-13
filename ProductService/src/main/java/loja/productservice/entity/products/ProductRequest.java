@@ -1,4 +1,4 @@
-package loja.productservice.entity;
+package loja.productservice.entity.products;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

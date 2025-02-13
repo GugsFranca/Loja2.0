@@ -1,8 +1,8 @@
-package loja.productservice.service;
+package loja.productservice.service.product;
 
-import loja.productservice.entity.ProductModel;
-import loja.productservice.entity.ProductRequest;
-import loja.productservice.entity.ProductResponse;
+import loja.productservice.entity.products.ProductModel;
+import loja.productservice.entity.products.ProductRequest;
+import loja.productservice.entity.products.ProductResponse;
 import org.springframework.stereotype.Service;
 
 @Service

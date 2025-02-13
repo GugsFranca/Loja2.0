@@ -1,6 +1,6 @@
-package loja.productservice.repository;
+package loja.productservice.repository.product;
 
-import loja.productservice.entity.ProductModel;
+import loja.productservice.entity.products.ProductModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,9 +1,9 @@
-package loja.productservice.service;
+package loja.productservice.service.product;
 
 import jakarta.persistence.EntityNotFoundException;
-import loja.productservice.entity.ProductRequest;
-import loja.productservice.entity.ProductResponse;
-import loja.productservice.repository.ProductRepository;
+import loja.productservice.entity.products.ProductRequest;
+import loja.productservice.entity.products.ProductResponse;
+import loja.productservice.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

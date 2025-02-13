@@ -1,4 +1,4 @@
-package loja.productservice.entity;
+package loja.productservice.entity.products;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
