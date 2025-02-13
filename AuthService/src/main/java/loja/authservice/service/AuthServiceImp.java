@@ -1,6 +1,7 @@
 package loja.authservice.service;
 
 import loja.authservice.entity.AuthRequest;
+import loja.authservice.entity.AuthRequestLogin;
 import loja.authservice.entity.AuthResponse;
 import loja.authservice.entity.ClientModel;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,16 @@ public class AuthServiceImp implements AuthService {
 
         String accessToken = jwtUtils.generate(client.id().toString(), client.role(), "ACCESS");
         String refreshToken = jwtUtils.generate(client.id().toString(), client.role(),"REFRESH");
+
+        return new AuthResponse(accessToken, refreshToken);
+    }
+
+    @Override
+    public AuthResponse login(AuthRequestLogin login) {
+
+        var client = restTemplate.postForObject("http://localhost:9000/client/login", login , ClientModel.class);
+            String accessToken = jwtUtils.generate(client.id().toString(), client.role(), "ACCESS");
+            String refreshToken = jwtUtils.generate(client.id().toString(), client.role(),"REFRESH");
 
         return new AuthResponse(accessToken, refreshToken);
     }

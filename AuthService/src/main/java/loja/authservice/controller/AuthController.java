@@ -1,6 +1,7 @@
 package loja.authservice.controller;
 
 import loja.authservice.entity.AuthRequest;
+import loja.authservice.entity.AuthRequestLogin;
 import loja.authservice.entity.AuthResponse;
 import loja.authservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,9 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
         return ResponseEntity.ok(service.register(request));
+    }
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequestLogin login){
+        return ResponseEntity.ok(service.login(login));
     }
 }
