@@ -1,6 +1,7 @@
 package loja.productservice.entity.products;
 
 import jakarta.persistence.*;
+import loja.productservice.entity.category.CategoryModel;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -23,4 +24,6 @@ public class ProductModel {
     @Column(nullable = false, scale = 2)
     private BigDecimal preco;
     private int quantity;
+    @ManyToOne
+    private CategoryModel category;
 }
