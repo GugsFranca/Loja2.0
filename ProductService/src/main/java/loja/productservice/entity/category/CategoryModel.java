@@ -13,6 +13,6 @@ public class CategoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private CategoryName categoryName;
+    @Column(nullable = false, unique = true)
+    private String categoryName;
 }
