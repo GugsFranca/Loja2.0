@@ -14,7 +14,9 @@ public class ProductMapper {
                 productModel.getName(),
                 productModel.getDescription(),
                 productModel.getPreco(),
-                productModel.getQuantity());
+                productModel.getQuantity(),
+                productModel.getCategory()
+        );
     }
 
     public ProductModel toProductModel(ProductRequest request) {
@@ -23,6 +25,7 @@ public class ProductMapper {
                 .description(request.description())
                 .preco(request.preco())
                 .quantity(request.quantity())
+                .category(request.category())
                 .build();
     }
 }

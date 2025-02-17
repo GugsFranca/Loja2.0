@@ -3,6 +3,7 @@ package loja.productservice.entity.products;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import loja.productservice.entity.category.CategoryModel;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,5 +19,9 @@ public record ProductRequest(
         @NotNull
         @PositiveOrZero(message = "Price should be positive")
         BigDecimal preco,
-        @PositiveOrZero int quantity) implements Serializable {
+        @PositiveOrZero int quantity,
+        @NotNull
+        CategoryModel category
+
+) implements Serializable {
 }
