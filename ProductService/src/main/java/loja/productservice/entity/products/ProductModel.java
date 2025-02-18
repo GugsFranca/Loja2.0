@@ -3,6 +3,8 @@ package loja.productservice.entity.products;
 import jakarta.persistence.*;
 import loja.productservice.entity.category.CategoryModel;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.math.BigDecimal;
 
@@ -25,5 +27,6 @@ public class ProductModel {
     private BigDecimal preco;
     private int quantity;
     @ManyToOne
+    @Cascade(CascadeType.ALL)
     private CategoryModel category;
 }

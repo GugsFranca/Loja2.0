@@ -37,9 +37,9 @@ public class ProductController {
         return ResponseEntity.ok(service.addProduct(request));
     }
 
-    public ResponseEntity<ProductResponse> sendToCart(Long id) {
-        //TODO
-        return null;
+    @PostMapping("/{id}")
+    public ResponseEntity<ProductResponse> sendToCart(@PathVariable Long id) {
+        return ResponseEntity.ok(service.sendToCart(id));
     }
 
 }

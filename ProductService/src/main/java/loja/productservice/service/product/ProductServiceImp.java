@@ -1,6 +1,9 @@
 package loja.productservice.service.product;
 
 import jakarta.persistence.EntityNotFoundException;
+import loja.productservice.Kafka.ProductProducer;
+import loja.productservice.entity.category.CategoryModel;
+import loja.productservice.entity.products.ProductModel;
 import loja.productservice.entity.products.ProductRequest;
 import loja.productservice.entity.products.ProductResponse;
 import loja.productservice.repository.category.CategoryRepository;
@@ -9,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +20,7 @@ public class ProductServiceImp implements ProductService {
     private final ProductRepository repository;
     private final CategoryRepository categoryRepository;
     private final ProductMapper mapper;
+    private final ProductProducer producer;
 
     @Override
     public ProductResponse findById(Long id) {
@@ -40,15 +45,21 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public String addProduct(ProductRequest request) {
-        if (categoryRepository.findByCategoryName(request.category().getCategoryName()).isEmpty()){
-            categoryRepository.save(request.category());
-        }
-        return repository.save(mapper.toProductModel(request)).getName();
+        CategoryModel category = categoryRepository.findByCategoryName(request.category().getCategoryName())
+                .orElseGet(() -> categoryRepository.save(request.category()));
+        ProductModel product = mapper.toProductModel(request);
+        product.setCategory(category);
+
+        return repository.save(product).getName();
     }
 
     @Override
     public ProductResponse sendToCart(Long id) {
-        //TODO
+        Optional<ProductModel> product = repository.findById(id);
+        if (product.isPresent()) {
+            producer.sendProduct(product.get());
+            return mapper.toResponse(product.get());
+        }
         return null;
     }
 }

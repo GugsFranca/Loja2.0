@@ -25,7 +25,6 @@ public class ProductMapper {
                 .description(request.description())
                 .preco(request.preco())
                 .quantity(request.quantity())
-                .category(request.category())
                 .build();
     }
 }
