@@ -1,12 +1,11 @@
 package loja.cartservice.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import loja.cartservice.kafka.productorsEntities.Product;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,9 +18,9 @@ import java.util.UUID;
 public class CartEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private Long userId;
-    private List<Product> product;
+    private String id;
+    private Long clientId;
+    private List<CartLine> cartLine = new ArrayList<>();
     private int quantity;
+    private Double totalAmount;
 }
