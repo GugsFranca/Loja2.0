@@ -10,10 +10,5 @@ public interface ProductService {
     List<ProductResponse> findAll();
     ProductResponse findByName(String name);
     String addProduct(ProductRequest request);
-    ProductResponse sendToCart(Long id);
-
-
-
-
-
+    ProductResponse sendToCart(String token, Long id);
 }

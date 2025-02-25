@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class ProductProducer {
-    private final KafkaTemplate<String, ProductModel> kafkaTemplate;
+    private final KafkaTemplate<String, KafkaMessage> kafkaTemplate;
 
-    public void sendProduct(ProductModel productModel){
-        Message<ProductModel> message = MessageBuilder
-                .withPayload(productModel)
+    public void sendProduct(KafkaMessage kafkaMessage){
+        Message<KafkaMessage> message = MessageBuilder
+                .withPayload(kafkaMessage)
                 .setHeader(KafkaHeaders.TOPIC, "product-topic")
                 .build();
         kafkaTemplate.send(message);

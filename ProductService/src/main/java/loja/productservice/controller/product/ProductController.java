@@ -38,8 +38,8 @@ public class ProductController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<ProductResponse> sendToCart(@PathVariable Long id) {
-        return ResponseEntity.ok(service.sendToCart(id));
+    public ResponseEntity<ProductResponse> sendToCart(@RequestHeader("Authorization") String token, @PathVariable Long id) {
+        return ResponseEntity.ok(service.sendToCart(token, id));
     }
 
 }
