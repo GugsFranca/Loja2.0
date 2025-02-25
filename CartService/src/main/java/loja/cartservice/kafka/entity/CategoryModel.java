@@ -1,4 +1,4 @@
-package loja.cartservice.kafka.productorsEntities;
+package loja.cartservice.kafka.entity;
 
 public record CategoryModel(
         String categoryName
