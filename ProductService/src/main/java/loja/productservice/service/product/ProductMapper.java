@@ -27,4 +27,15 @@ public class ProductMapper {
                 .quantity(request.quantity())
                 .build();
     }
+
+    public ProductModel toSendForCart(ProductModel product, int quantity) {
+        return ProductModel.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .preco(product.getPreco())
+                .quantity(quantity)
+                .category(product.getCategory())
+                .build();
+    }
 }

@@ -1,5 +1,6 @@
 package loja.productservice.controller.product;
 
+import loja.productservice.entity.products.ProductModel;
 import loja.productservice.entity.products.ProductRequest;
 import loja.productservice.entity.products.ProductResponse;
 import loja.productservice.service.product.ProductService;
@@ -23,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> findAll() {
+    public ResponseEntity<List<ProductModel>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
@@ -37,9 +38,9 @@ public class ProductController {
         return ResponseEntity.ok(service.addProduct(request));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<ProductResponse> sendToCart(@RequestHeader("Authorization") String token, @PathVariable Long id) {
-        return ResponseEntity.ok(service.sendToCart(token, id));
+    @PostMapping("/{id}&{quantity}")
+    public ResponseEntity<ProductResponse> sendToCart(@RequestHeader("Authorization") String token, @PathVariable Long id, @PathVariable int quantity) {
+        return ResponseEntity.ok(service.sendToCart(token, id, quantity));
     }
 
 }

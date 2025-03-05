@@ -32,8 +32,8 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> findAll() {
-        var productList = repository.findAll().stream().map(mapper::toResponse).toList();
+    public List<ProductModel> findAll() {
+        var productList = repository.findAll();
         if (productList.isEmpty()) {
             throw new EntityNotFoundException("There is no products in this database");
         }
@@ -57,18 +57,28 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public ProductResponse sendToCart(String token, Long id) {
+    public ProductResponse sendToCart(String token, Long id, int quantity) {
         ProductModel product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
-        KafkaMessage kafkaMessage = KafkaMessage.builder().token(token).model(product).build();
-        try {
-            // Send the message to Kafka
-            producer.sendProduct(kafkaMessage);
-            log.info("Product sent to cart successfully: {}", product.getId());
+        if (product.getQuantity() < 1 ){
+            throw new IllegalStateException("Product out of stock: " + product.getId());
+        }
+        if (quantity <= 0){
+            throw new IllegalStateException("Not enough stock for product: " + product.getId());
+        }
+        if (product.getQuantity()<quantity){
+            throw new IllegalStateException("Not enough stock for product: " + product.getId());
+        }
 
-            // Map the product to a response and return it
-            return mapper.toResponse(product);
+        ProductModel productForCart = mapper.toSendForCart(product, quantity);
+
+        KafkaMessage kafkaMessage = KafkaMessage.builder().token(token).model(productForCart).build();
+        product.setQuantity(product.getQuantity() - quantity);
+        try {
+            producer.sendProduct(kafkaMessage);
+            log.info("Product sent to cart successfully: {}", productForCart.getId());
+
+            return mapper.toResponse(productForCart);
         } catch (Exception e) {
-            // Handle Kafka producer errors
             log.error("Failed to send product to cart: {}", e.getMessage());
             throw new KafkaException("Failed to send product to cart", e);
         }
