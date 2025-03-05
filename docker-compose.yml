@@ -58,9 +58,20 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
     networks:
       - store_net
-
+  mysql:
+    container_name: mysqlServer
+    image: mysql/mysql-server
+    restart: always
+    environment:
+      - MYSQL_DATABASE=store_project
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql:/var/lib/msql
 volumes:
   mongo:
+  mysql:
 
 networks:
   store_net:
